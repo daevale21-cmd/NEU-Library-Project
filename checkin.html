@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>NEU Library — Check In</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/checkin.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-logo">
+    <div class="nav-logo-wrap">
+      <img src="neu-logo.png" alt="NEU" class="nav-logo-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="nav-logo-mark" style="display:none">N</div>
+    </div>
+    <div>
+      <div class="nav-brand">New Era University Library</div>
+      <div class="nav-sub">Visitor Management System</div>
+    </div>
+  </div>
+  <div class="navbar-right">
+    <div class="nav-clock" id="nav-clock">—</div>
+    <div class="navbar-user">
+      <div class="user-chip">
+        <div class="user-avatar" id="nav-avatar">--</div>
+        <span class="user-chip-name" id="nav-name">Loading…</span>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-logout">Sign Out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="checkin-body" id="view-checkin">
+
+  <aside class="user-info-card">
+    <div class="card">
+      <div class="gold-tag">🎓 Student / Faculty</div>
+      <div class="avatar-lg" id="ci-avatar">--</div>
+      <div class="user-fullname" id="ci-name">—</div>
+      <div class="user-college"  id="ci-college">—</div>
+      <div class="user-email"    id="ci-email">—</div>
+    </div>
+  </aside>
+
+  <div class="checkin-main">
+    <div class="page-heading">
+      <h1>Log Your Visit</h1>
+      <p>Fill in the details below before entering the library.</p>
+    </div>
+
+    <div class="card checkin-form-card">
+      <div class="step-label">
+        <div class="step-dot">1</div>
+        <span class="step-dot-text">Purpose & Details</span>
+      </div>
+
+      <div id="ci-alert" class="alert alert-error hidden" style="margin-bottom:16px;"></div>
+
+      <div class="fields-stack">
+        <div class="field">
+          <label>Purpose of Visit <span class="req">*</span> <span class="hint-inline">(select all that apply)</span></label>
+          <div class="purpose-grid" id="purpose-grid">
+            <label class="purpose-chip">
+              <input type="checkbox" value="Reading Books"/> 📚 Reading Books
+            </label>
+            <label class="purpose-chip">
+              <input type="checkbox" value="Research / Thesis"/> 🔬 Research / Thesis
+            </label>
+            <label class="purpose-chip">
+              <input type="checkbox" value="Use of Computer"/> 💻 Use of Computer
+            </label>
+            <label class="purpose-chip">
+              <input type="checkbox" value="Doing Assignments"/> ✏️ Doing Assignments
+            </label>
+            <label class="purpose-chip">
+              <input type="checkbox" value="Borrowing Materials"/> 📖 Borrowing Materials
+            </label>
+            <label class="purpose-chip">
+              <input type="checkbox" value="Group Study"/> 👥 Group Study
+            </label>
+            <label class="purpose-chip">
+              <input type="checkbox" value="Studying"/> 🎓 Studying
+            </label>
+            <label class="purpose-chip">
+              <input type="checkbox" value="Other" id="chip-other"/> ➕ Other
+            </label>
+          </div>
+        </div>
+
+        <div class="field hidden" id="other-field">
+          <label>Please describe your other purpose</label>
+          <input id="ci-other" type="text" placeholder="Describe your purpose"/>
+        </div>
+
+        <div class="field">
+          <label>College / Office</label>
+          <input id="ci-college-input" type="text" readonly
+                 style="background:var(--surface);cursor:default;"/>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full" id="btn-checkin">
+        ✅ &nbsp;Check In to Library
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Success overlay -->
+<div class="success-overlay hidden" id="view-success">
+  <div class="card success-card anim-pop-in">
+
+    <div class="success-ring">✓</div>
+
+    <h1 class="success-title">
+      Welcome to the<br/><em>NEU Library!</em>
+    </h1>
+    <p class="success-subtitle">Your visit has been recorded successfully.</p>
+
+    <div class="visit-summary" id="visit-summary"></div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-dot"></div>
+        <div class="t-dot"></div>
+        <div class="t-dot"></div>
+      </div>
+      <div id="terminal-lines"></div>
+    </div>
+
+    <!-- Auto sign-out countdown -->
+    <div class="auto-signout-bar" id="auto-signout-bar">
+      <div class="signout-progress" id="signout-progress"></div>
+      <span id="signout-countdown-text">Signing out in 3s…</span>
+    </div>
+
+    <div class="success-actions">
+      <button class="btn btn-ghost" id="btn-again">Check In Again</button>
+      <button class="btn btn-primary" id="btn-logout-success">Sign Out Now</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/checkin.js"></script>
+</body>
+</html>

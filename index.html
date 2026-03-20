@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>NEU Library — Sign In</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/login.css"/>
+</head>
+<body>
+
+
+<div class="modal-overlay hidden" id="admin-modal">
+  <div class="modal-card anim-pop-in">
+    <div class="modal-icon">🏛️</div>
+    <h2 class="modal-title">Welcome, Admin!</h2>
+    <p class="modal-desc">Where would you like to go?</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary btn-full" id="btn-go-dashboard">
+        📊 &nbsp;Admin Dashboard
+      </button>
+      <button class="btn btn-ghost btn-full" id="btn-go-checkin">
+        ✅ &nbsp;Check In as Visitor
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="login-shell">
+
+  <aside class="brand-panel">
+    <div class="brand-top">
+      <div class="brand-logo-row">
+        <div class="brand-logo-wrap">
+          <img src="neu-logo.png" alt="NEU" class="brand-logo-img"
+               onerror="this.style.display='none';document.querySelector('.brand-logo-fallback').style.display='flex'"/>
+          <div class="brand-logo-fallback" style="display:none">N</div>
+        </div>
+        <div>
+          <div class="brand-name">New Era University</div>
+          <div class="brand-sub">Quezon City, Philippines</div>
+        </div>
+      </div>
+
+      <h1 class="brand-headline">
+      <br/><em>Ready to Begin Your Learning Journey?.</em>
+      </h1>
+      <p class="brand-tagline">
+        The NEU Library Visitor Management System keeps an accurate,
+        real-time record of every student and faculty visit — making
+        library administration effortless.
+      </p>
+
+      <div class="brand-dots">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      <p>© 2025 New Era University Library</p>
+    </div>
+  </aside>
+
+  <main class="form-panel">
+    <div class="form-inner anim-fade-up">
+
+      <div class="tab-row">
+        <button class="tab-pill active" data-tab="login">Login</button>
+        <button class="tab-pill"        data-tab="register">Register</button>
+      </div>
+
+      
+      <div class="form-pane active" id="pane-login">
+        <h2 class="form-title">Welcome back</h2>
+        <p class="form-desc">Sign in using your NEU institutional account.</p>
+
+        <div id="login-alert" class="alert alert-error hidden"></div>
+
+        <button class="btn btn-google btn-full" id="btn-google-login">
+          <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
+            <path d="M6.306 14.691l6.571 4.819C14.655 15.108 19.000 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/>
+            <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>
+            <path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="or-divider">or sign in with email</div>
+
+        <div class="fields-stack">
+          <div class="field">
+            <label>Institutional Email</label>
+            <input id="login-id" type="email" placeholder="juan@neu.edu.ph" autocomplete="off"/>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <div class="pw-wrap">
+              <input id="login-pw" type="password" placeholder="Enter your password"/>
+              <button type="button" class="pw-toggle" data-target="login-pw">👁</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" id="btn-login">Sign In</button>
+        <p class="form-footer">Don't have an account?
+          <a href="#" data-goto="register">Register here</a>
+        </p>
+      </div>
+
+      
+      <div class="form-pane" id="pane-register">
+        <h2 class="form-title">Create account</h2>
+        <p class="form-desc">Use your @neu.edu.ph email to register.</p>
+
+        <div id="reg-alert" class="alert alert-error hidden"></div>
+        <div id="reg-ok"    class="alert alert-success hidden"></div>
+
+        <button class="btn btn-google btn-full" id="btn-google-register">
+          <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
+            <path d="M6.306 14.691l6.571 4.819C14.655 15.108 19.000 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/>
+            <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>
+            <path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/>
+          </svg>
+          Register with Google
+        </button>
+
+        <div class="or-divider">or fill in the form</div>
+
+        <div id="reg-prefilled-notice" class="prefill-notice hidden">
+          ✅ Info pre-filled from Google — complete the fields below to finish.
+        </div>
+
+        <div class="fields-stack">
+          <div class="field">
+            <label>Institutional Email <span class="req">*</span></label>
+            <input id="r-email" type="email" placeholder="juan@neu.edu.ph"/>
+            <span class="hint">Must end in @neu.edu.ph</span>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>First Name <span class="req">*</span></label>
+              <input id="r-fn" type="text" placeholder="Juan"/>
+            </div>
+            <div class="field">
+              <label>Last Name <span class="req">*</span></label>
+              <input id="r-ln" type="text" placeholder="dela Cruz"/>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>School ID <span class="req">*</span></label>
+              <input id="r-sid" type="text" placeholder="2021-00001"/>
+            </div>
+            <div class="field">
+              <label>M.I.</label>
+              <input id="r-mi" type="text" placeholder="A." maxlength="3"/>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>College / Dept <span class="req">*</span></label>
+              <select id="r-college">
+                <option value="">Select…</option>
+                <option>College of Computer Studies</option>
+                <option>College of Nursing</option>
+                <option>College of Engineering</option>
+                <option>College of Business Administration</option>
+                <option>College of Education</option>
+                <option>College of Arts and Sciences</option>
+                <option>College of Architecture</option>
+                <option>College of Law</option>
+                <option>College of Medicine</option>
+                <option>Graduate School</option>
+                <option>Faculty / Staff</option>
+                <option>Administration</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Program <span class="req">*</span></label>
+              <input id="r-prog" type="text" placeholder="e.g. BSCS"/>
+            </div>
+          </div>
+
+          <div id="password-fields">
+            <div class="field-row">
+              <div class="field">
+                <label>Password <span class="req">*</span></label>
+                <div class="pw-wrap">
+                  <input id="r-pw" type="password" placeholder="Min. 6 chars"/>
+                  <button type="button" class="pw-toggle" data-target="r-pw">👁</button>
+                </div>
+              </div>
+              <div class="field">
+                <label>Confirm Password <span class="req">*</span></label>
+                <input id="r-pw2" type="password" placeholder="Repeat"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" id="btn-register">Create Account</button>
+        <p class="form-footer">Already registered?
+          <a href="#" data-goto="login">Sign in here</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script type="module" src="js/login.js"></script>
+</body>
+</html>

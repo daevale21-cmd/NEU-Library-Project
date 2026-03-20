@@ -1,0 +1,210 @@
+html,body { height:100%; }
+body { display:flex; flex-direction:column; background:var(--white); overflow-x:hidden; }
+
+.login-shell {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:100vh;
+}
+
+.brand-panel {
+  background:var(--ink);
+  display:flex; flex-direction:column;
+  justify-content:space-between;
+  padding:48px;
+  position:relative;
+  overflow:hidden;
+}
+
+.brand-panel::before {
+  content:'';
+  position:absolute; top:-80px; right:-80px;
+  width:360px; height:360px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(22,73,192,.5) 0%, transparent 70%);
+  pointer-events:none;
+}
+.brand-panel::after {
+  content:'';
+  position:absolute; bottom:-60px; left:-60px;
+  width:260px; height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(240,180,41,.18) 0%, transparent 65%);
+  pointer-events:none;
+}
+
+.brand-top { position:relative; z-index:1; }
+
+.brand-logo-row {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:72px;
+}
+.brand-logo-img {
+  width:52px; height:52px; border-radius:10px;
+  object-fit:contain; background:rgba(255,255,255,.08);
+  padding:6px;
+}
+.brand-logo-fallback {
+  width:52px; height:52px; border-radius:10px;
+  background:var(--blue); display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-size:1.3rem; font-weight:600; color:var(--white);
+}
+.brand-name { color:var(--white); font-size:.95rem; font-weight:600; line-height:1.3; }
+.brand-sub  { color:rgba(255,255,255,.45); font-size:.72rem; margin-top:2px; text-transform:uppercase; letter-spacing:.07em; }
+
+.brand-headline {
+  font-family:var(--font-display); font-size:2.6rem; line-height:1.15;
+  color:var(--white); font-weight:500; margin-bottom:16px;
+}
+.brand-headline em { color:var(--gold); font-style:italic; }
+.brand-tagline { color:rgba(255,255,255,.5); font-size:.88rem; font-weight:300; line-height:1.7; max-width:340px; }
+
+.brand-dots {
+  display:flex; gap:8px; margin-top:48px; position:relative; z-index:1;
+}
+.brand-dots span {
+  width:8px; height:8px; border-radius:50%;
+  background:rgba(255,255,255,.2);
+}
+.brand-dots span:first-child { background:var(--gold); width:24px; border-radius:99px; }
+
+.brand-footer { position:relative; z-index:1; }
+.brand-footer p { color:rgba(255,255,255,.3); font-size:.72rem; }
+
+.form-panel {
+  background:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  padding:48px 56px;
+  overflow-y:auto;
+}
+.form-inner { width:100%; max-width:400px; }
+
+.tab-row {
+  display:flex; gap:0;
+  background:var(--surface);
+  border-radius:var(--r-lg);
+  padding:4px;
+  margin-bottom:32px;
+}
+.tab-pill {
+  flex:1; height:38px;
+  background:transparent; border:none;
+  border-radius:var(--r-md);
+  font-size:.84rem; font-weight:600; color:var(--muted);
+  transition:all .2s var(--ease);
+}
+.tab-pill.active {
+  background:var(--white);
+  color:var(--ink);
+  box-shadow:var(--shadow-sm);
+}
+
+.form-pane { display:none; }
+.form-pane.active { display:block; animation:fadeUp .35s var(--ease) both; }
+
+.form-title {
+  font-family:var(--font-display);
+  font-size:1.65rem; color:var(--ink); margin-bottom:4px;
+}
+.form-desc { font-size:.84rem; color:var(--muted); margin-bottom:26px; }
+
+.fields-stack { display:flex; flex-direction:column; gap:14px; margin-bottom:22px; }
+
+.form-footer {
+  text-align:center; font-size:.8rem; color:var(--muted); margin-top:16px;
+}
+.form-footer a { color:var(--blue); font-weight:600; }
+
+.or-divider {
+  display:flex; align-items:center; gap:12px;
+  margin:18px 0; color:var(--muted); font-size:.75rem;
+}
+.or-divider::before,.or-divider::after {
+  content:''; flex:1; height:1px; background:var(--border);
+}
+
+@media(max-width:860px) {
+  .login-shell { grid-template-columns:1fr; }
+  .brand-panel { display:none; }
+  .form-panel  { padding:40px 24px; align-items:flex-start; padding-top:60px; }
+}
+
+/* ── Google Button ──────────────────────────────────────── */
+.btn-google {
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  height:44px; padding:0 22px;
+  background:var(--white); color:var(--ink);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-md);
+  font-size:.88rem; font-weight:600;
+  transition:all .18s var(--ease);
+  width:100%; cursor:pointer;
+  font-family:var(--font-ui);
+  box-shadow:var(--shadow-xs);
+  margin-bottom:4px;
+}
+.btn-google:hover {
+  background:var(--surface);
+  border-color:var(--blue-mid);
+  box-shadow:var(--shadow-sm);
+  transform:translateY(-1px);
+}
+
+/* ── Prefill notice ─────────────────────────────────────── */
+.prefill-notice {
+  background:var(--green-bg);
+  color:var(--green);
+  border:1px solid #9adfc4;
+  border-radius:var(--r-md);
+  padding:10px 14px;
+  font-size:.82rem;
+  font-weight:500;
+  margin-bottom:12px;
+}
+
+/* ── Admin Modal ────────────────────────────────────────── */
+.modal-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(11,29,58,.55);
+  backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+}
+.modal-overlay.hidden { display:none !important; }
+
+.modal-card {
+  background:var(--white);
+  border-radius:var(--r-xl);
+  padding:40px 36px;
+  max-width:360px; width:100%;
+  box-shadow:var(--shadow-lg);
+  text-align:center;
+}
+.modal-icon { font-size:2.8rem; margin-bottom:12px; }
+.modal-title {
+  font-family:var(--font-display);
+  font-size:1.6rem; color:var(--ink); margin-bottom:6px;
+}
+.modal-desc { color:var(--muted); font-size:.88rem; margin-bottom:28px; }
+.modal-actions { display:flex; flex-direction:column; gap:10px; }
+
+/* ── Brand logo fix ─────────────────────────────────────── */
+.brand-logo-wrap {
+  width:52px; height:52px; position:relative;
+  border-radius:10px;
+  background:rgba(255,255,255,.12);
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  padding:4px;
+}
+.brand-logo-img {
+  width:100%; height:100%;
+  object-fit:contain;
+  border-radius:8px;
+}
+.brand-logo-fallback {
+  width:52px; height:52px; border-radius:10px;
+  background:var(--blue); display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-size:1.3rem; font-weight:600; color:var(--white);
+  position:absolute; inset:0;
+}

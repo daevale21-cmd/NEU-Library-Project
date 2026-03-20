@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>NEU Library — Admin Dashboard</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+
+<aside class="sidebar">
+  <div class="sidebar-head">
+    <div class="sb-logo-row">
+      <div class="sb-logo-wrap">
+        <img src="neu-logo.png" alt="NEU" class="sb-logo-img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="sb-logo-mark" style="display:none">N</div>
+      </div>
+      <div>
+        <div class="sb-org">NEU Library</div>
+        <div class="sb-module">Admin Console</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <button class="nav-link active" data-section="overview">
+      <span class="nav-icon">📊</span> Overview
+    </button>
+    <button class="nav-link" data-section="logs">
+      <span class="nav-icon">📋</span> Visitor Logs
+    </button>
+    <button class="nav-link" data-section="users">
+      <span class="nav-icon">👥</span> Users
+    </button>
+
+    <div class="nav-section-label" style="margin-top:8px;">Reports</div>
+    <button class="nav-link" data-section="reports">
+      <span class="nav-icon">📄</span> Generate PDF
+    </button>
+  </nav>
+
+  <div class="sidebar-foot">
+    <div class="sidebar-admin-chip">
+      <div class="sb-avatar" id="sb-avatar">A</div>
+      <div>
+        <div class="sb-name" id="sb-name">Admin</div>
+        <div class="sb-role">Administrator</div>
+      </div>
+    </div>
+    <button class="btn-signout" id="btn-signout">
+      <span>🚪</span> Sign Out
+    </button>
+  </div>
+</aside>
+
+<div class="dash-main">
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2 id="topbar-title">Dashboard Overview</h2>
+      <p id="topbar-sub">All-time visitor statistics</p>
+    </div>
+    <div class="topbar-right">
+      <span class="time-chip" id="time-chip">—</span>
+    </div>
+  </div>
+
+  <div class="dash-content">
+
+    <div class="section active" id="section-overview">
+
+      <div class="filter-row">
+        <button class="filter-chip active" data-filter="today">Today</button>
+        <button class="filter-chip"        data-filter="week">This Week</button>
+        <button class="filter-chip"        data-filter="month">This Month</button>
+        <button class="filter-chip"        data-filter="custom">Custom</button>
+        <div class="custom-dates hidden" id="custom-dates">
+          <input type="date" id="range-from"/>
+          <span style="color:var(--muted);font-size:.8rem;">to</span>
+          <input type="date" id="range-to"/>
+          <button class="btn-apply" id="btn-apply-range">Apply</button>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-icon-wrap icon-blue">👤</div>
+          <div>
+            <div class="stat-number" id="s-total">—</div>
+            <div class="stat-name">Total Visits</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap icon-gold">📅</div>
+          <div>
+            <div class="stat-number" id="s-today">—</div>
+            <div class="stat-name">Visits Today</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap icon-green">🏫</div>
+          <div>
+            <div class="stat-number" id="s-colleges">—</div>
+            <div class="stat-name">Colleges</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap icon-red">🔒</div>
+          <div>
+            <div class="stat-number" id="s-blocked">—</div>
+            <div class="stat-name">Blocked Users</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">Visitor Trend</div>
+              <div class="chart-sub">Daily visit count</div>
+            </div>
+          </div>
+          <canvas id="chart-trend" height="120"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">By College</div>
+              <div class="chart-sub">Distribution</div>
+            </div>
+          </div>
+          <canvas id="chart-college" height="180"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">By Purpose</div>
+              <div class="chart-sub">Reason for visit</div>
+            </div>
+          </div>
+          <canvas id="chart-purpose" height="140"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">Visit Heatmap</div>
+              <div class="chart-sub">Hour of day</div>
+            </div>
+          </div>
+          <canvas id="chart-hour" height="140"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-logs">
+      <div class="section-toolbar">
+        <input class="search-box" id="log-search" type="text"
+               placeholder="Search by name, email, college…"/>
+        <button class="btn-export" id="btn-csv">
+          ⬇️ Export CSV
+        </button>
+      </div>
+      <div class="table-card">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Check-In Time</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>College</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody id="logs-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section" id="section-users">
+      <div class="section-toolbar">
+        <input class="search-box" id="user-search" type="text"
+               placeholder="Search users by name or email…"/>
+      </div>
+      <div class="table-card">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>School ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>College</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section" id="section-reports">
+
+      <div class="reports-grid" id="report-type-grid">
+        <div class="report-option-card selected" data-type="summary">
+          <div class="r-icon">📊</div>
+          <h3>Summary Report</h3>
+          <p>Daily visitor totals for the selected period</p>
+        </div>
+        <div class="report-option-card" data-type="detailed">
+          <div class="r-icon">📋</div>
+          <h3>Detailed Log</h3>
+          <p>Full list of every visit with all details</p>
+        </div>
+        <div class="report-option-card" data-type="college">
+          <div class="r-icon">🏫</div>
+          <h3>By College</h3>
+          <p>Visitor count broken down by department</p>
+        </div>
+        <div class="report-option-card" data-type="purpose">
+          <div class="r-icon">🎯</div>
+          <h3>By Purpose</h3>
+          <p>Visit count grouped by purpose of visit</p>
+        </div>
+      </div>
+
+      <div class="report-controls">
+        <h3>Report Settings</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px;">
+          <div class="field" style="flex:1;min-width:180px;">
+            <label>Period</label>
+            <select id="rpt-period">
+              <option value="today">Today</option>
+              <option value="week">This Week</option>
+              <option value="month">This Month</option>
+              <option value="custom">Custom Range</option>
+            </select>
+          </div>
+          <div class="field hidden" id="rpt-from-field" style="flex:1;min-width:140px;">
+            <label>From</label>
+            <input type="date" id="rpt-from"/>
+          </div>
+          <div class="field hidden" id="rpt-to-field" style="flex:1;min-width:140px;">
+            <label>To</label>
+            <input type="date" id="rpt-to"/>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="btn-generate-pdf">
+          📄 &nbsp;Generate & Download PDF
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+<script type="module" src="js/dashboard.js"></script>
+<script type="module" src="js/reports.js"></script>
+</body>
+</html>
